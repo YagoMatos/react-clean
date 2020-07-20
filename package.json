@@ -26,7 +26,9 @@
     "jest": "^26.0.1",
     "lint-staged": "^10.2.9",
     "ts-jest": "^26.1.0",
-    "typescript": "^3.9.5"
+    "typescript": "^3.9.5",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
   },
   "keywords": [],
   "author": "",
