@@ -1,6 +1,6 @@
 {
   "name": "react-clean",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "NodeJs Rest API using TDD, Clean Archtecture and Typescript",
   "main": "index.js",
   "scripts": {
