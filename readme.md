@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.com/YagoMatos/react-clean.svg?branch=master)](https://travis-ci.com/YagoMatos/react-clean)
+[![Coverage Status](https://coveralls.io/repos/github/YagoMatos/react-clean/badge.svg?branch=master)](https://coveralls.io/github/YagoMatos/react-clean?branch=master)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
 
 
