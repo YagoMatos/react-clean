@@ -131,7 +131,7 @@ describe('Login Component', () => {
   test('Should present error if Authentication falis', async () => {
     const { sut, authenticationSpy } = makeSut()
     const error = new InvalidCredencialError()
-    jest.spyOn(authenticationSpy, 'auth').mockReturnValueOnce(Promise.reject(error))
+    jest.spyOn(authenticationSpy, 'auth').mockRejectedValueOnce(error)
     await simulateValidSubmit(sut)
     Helper.testElementText(sut, 'main-error', error.message)
     Helper.testChildCount(sut, 'error-wrap', 1)

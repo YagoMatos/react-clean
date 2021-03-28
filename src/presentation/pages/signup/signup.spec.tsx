@@ -3,6 +3,7 @@ import faker from 'faker'
 import { render, RenderResult, cleanup, fireEvent, waitFor } from '@testing-library/react'
 import { AddAccountSpy, Helper, ValidationStub } from '@/presentation/test/index'
 import { Signup } from '@/presentation/pages'
+import { EmailInUseError } from '@/domain/errors/email-in-use-error'
 
 type SutTypes = {
   sut: RenderResult
@@ -147,5 +148,14 @@ describe('Signup Component', () => {
     const { sut, addAccountSpy } = makeSut({ validationError })
     await simulateValidSubmit(sut)
     expect(addAccountSpy.callsCount).toBe(0)
+  })
+
+  test('Should present error if AddAccount falis', async () => {
+    const { sut, addAccountSpy } = makeSut()
+    const error = new EmailInUseError()
+    jest.spyOn(addAccountSpy, 'add').mockRejectedValueOnce(error)
+    await simulateValidSubmit(sut)
+    Helper.testElementText(sut, 'main-error', error.message)
+    Helper.testChildCount(sut, 'error-wrap', 1)
   })
 })
