@@ -1,16 +1,25 @@
 import React from 'react'
-import 'jest-localstorage-mock'
-import { render, RenderResult } from '@testing-library/react'
-import { Helper } from '@/presentation/test/index'
+import faker from 'faker'
+import { render, RenderResult, cleanup } from '@testing-library/react'
+import { Helper, ValidationStub } from '@/presentation/test/index'
 import { Signup } from '@/presentation/pages'
 
 type SutTypes = {
   sut: RenderResult
 }
 
-const makeSut = (): SutTypes => {
+type SutParams = {
+  validationError: string
+}
+
+const makeSut = (params?: SutParams): SutTypes => {
+  const validationStub = new ValidationStub()
+  validationStub.errorMessage = params?.validationError
+
   const sut = render(
-    <Signup />
+    <Signup
+      validation={validationStub}
+    />
   )
   return {
     sut
@@ -18,14 +27,24 @@ const makeSut = (): SutTypes => {
 }
 
 describe('Signup Component', () => {
+  afterEach(cleanup)
+
   test('Should start initial state', () => {
-    const validationError = 'Campo Obrigatório'
-    const { sut } = makeSut()
+    const validationError = faker.random.words()
+
+    const { sut } = makeSut({ validationError })
     Helper.testChildCount(sut, 'error-wrap', 0)
     Helper.testButtonIsDisabled(sut, 'submit', true)
     Helper.testStatusForField(sut, 'name', validationError)
-    Helper.testStatusForField(sut, 'email', validationError)
-    Helper.testStatusForField(sut, 'password', validationError)
-    Helper.testStatusForField(sut, 'passwordConfirmation', validationError)
+    Helper.testStatusForField(sut, 'email', 'Campo Obrigatório')
+    Helper.testStatusForField(sut, 'password', 'Campo Obrigatório')
+    Helper.testStatusForField(sut, 'passwordConfirmation', 'Campo Obrigatório')
+  })
+
+  test('Should show name error if Validation fails', () => {
+    const validationError = faker.random.words()
+    const { sut } = makeSut({ validationError })
+    Helper.populateField(sut, 'name')
+    Helper.testStatusForField(sut, 'name', validationError)
   })
 })

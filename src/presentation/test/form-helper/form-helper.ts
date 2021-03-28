@@ -17,14 +17,9 @@ export const testStatusForField = (sut: RenderResult, fieldName: string, validat
   expect(fieldStatus.textContent).toBe(validationError ? '🔴' : '🟢')
 }
 
-export const populateEmailField = (sut: RenderResult, email = faker.internet.email()): void => {
-  const emailInput = sut.getByTestId('email')
-  fireEvent.input(emailInput, { target: { value: email } })
-}
-
-export const populatePasswordField = (sut: RenderResult, password = faker.internet.password()): void => {
-  const passwordInput = sut.getByTestId('password')
-  fireEvent.input(passwordInput, { target: { value: password } })
+export const populateField = (sut: RenderResult, fiedlName: string, value = faker.internet.email()): void => {
+  const input = sut.getByTestId(fiedlName)
+  fireEvent.input(input, { target: { value } })
 }
 
 export const testElementExist = (sut: RenderResult, fieldname: string): void => {
