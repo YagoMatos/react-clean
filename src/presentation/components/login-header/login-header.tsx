@@ -6,7 +6,7 @@ type Props = React.HTMLAttributes<HTMLElement>
 
 const LoginHeader: React.FC<Props> = (props: Props) => {
   return (
-    <header className={Styles.header}>
+    <header className={Styles.headerWrap}>
       <Logo />
       <h1>4Dev - Enquete para Devs</h1>
     </header>
